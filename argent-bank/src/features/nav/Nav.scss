@@ -1,0 +1,56 @@
+@use '../../style/utils' as utils;
+
+.main-nav {
+    @include utils.flex-display();
+    padding: 5px 20px;
+    font-weight: bold;
+
+    a {
+        font-weight: bold;
+        color: #2c3e50;
+
+        .router-link-exact-active {
+            color: #42b983;
+        }
+    }
+
+    &__item {
+        text-decoration: none;
+        margin-right: 0.5rem;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__logo {
+        display: flex;
+        align-items: center;
+
+        &-image {
+            max-width: 100%;
+            width: 200px;
+        }
+    }
+
+    &__user {
+        @include utils.flex-display(
+            $flex-direction: row-reverse,
+            $gap: 30px
+        );
+        color: utils.argent-bank('green');
+        cursor: pointer;
+        a {
+            @include utils.flex-display(
+                $flex-direction: row-reverse,
+            );
+            font-weight: bold;
+            font-size: 25px;
+            text-decoration: none;
+            color: utils.argent-bank('green');
+        }
+        i {
+            font-size: 40px;
+        }
+    }
+}

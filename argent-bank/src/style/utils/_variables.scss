@@ -1,0 +1,17 @@
+@use "sass:map";
+
+$argent-bank: (
+    'green': rgb(117, 177, 128),
+    'white': #fff,
+    'font-stack': 'Avenir, Helvetica, Arial, sans-serif',
+    'mobile': 480px,
+    'tablet': 720px,
+    'laptop': 920px
+);
+
+@forward 'sass:map'; // To use built-in map functions
+@forward 'sass:meta'; // For advanced map introspection (optional)
+
+@function argent-bank($key) {
+    @return map.get($argent-bank, $key);
+}

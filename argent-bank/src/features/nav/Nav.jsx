@@ -6,6 +6,7 @@ import { NavItem, NavItemUser } from "../../components/navItem/NavItem";
 
 export const Nav = () => {
     const userInfo = useSelector((state) => state.auth.userInfo);
+    const token = useSelector((state) => state.auth.token);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,7 +25,7 @@ export const Nav = () => {
     return (
         <nav className="main-nav">
             <Logo />
-            {userInfo && userInfo.userName ? (
+            {userInfo && userInfo.userName && token ? (
                 <div className="main-nav__user">
                     <>
                         <NavItemUser

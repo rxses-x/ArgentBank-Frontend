@@ -52,7 +52,7 @@ export const User = () => {
 
                 setUserData(userInfo);
 
-                dispatch(login({ userInfo, token: data.body.token }));
+                dispatch(login({ userInfo, token: token }));
 
             } catch (err) {
                 console.error("Error fetching user data:", err);

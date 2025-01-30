@@ -1,0 +1,7 @@
+@use '../../style/utils' as utils;
+
+.transaction-header {
+    @include utils.flex-display();
+    padding: 10px 20px;
+    background-color: #f5f5f5;
+}

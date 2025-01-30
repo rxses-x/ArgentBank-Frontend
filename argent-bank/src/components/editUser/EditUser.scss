@@ -1,0 +1,98 @@
+@use '../../style/utils' as utils;
+@use "sass:color";
+
+// Variables
+$primary-color: #3bb073;
+$secondary-color: #ccc;
+
+// // Styles
+// const styles = {
+//     title: {
+//       color: "black",
+//       fontSize: "24px",
+//       fontWeight: "bold",
+//       marginBottom: "20px", // Adds spacing below the title
+//     },
+//     form: { display: "flex", flexDirection: "column", gap: "10px" },
+//     input: { padding: "8px", borderRadius: "4px", border: "1px solid #ccc" },
+//     buttonContainer: { display: "flex", gap: "10px", justifyContent: "flex-end" },
+//     saveButton: {
+//       backgroundColor: "#3bb073",
+//       color: "white",
+//       padding: "10px 20px",
+//       border: "none",
+//       borderRadius: "4px",
+//       cursor: "pointer",
+//     },
+//     cancelButton: {
+//       backgroundColor: "#ccc",
+//       color: "black",
+//       padding: "10px 20px",
+//       border: "none",
+//       borderRadius: "4px",
+//       cursor: "pointer",
+//     },
+//   };
+
+// Root container
+.edit-user {
+    &__info {
+        text-align: center;
+        margin: 0 auto;
+        padding: 20px;
+        max-width: 500px;
+    }
+
+    // Form container
+    &__form-container {
+        text-align: center;
+
+        &--title {
+            color: black;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px; // Adds spacing below the title
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            input {
+                padding: 8px;
+                border-radius: 4px;
+                border: 1px solid #ccc;
+                font-size: 14px;
+
+                &:disabled {
+                    background-color: #f0f0f0; // Light gray for disabled inputs
+                }
+            }
+        }
+
+        // Button container styling
+        &--button-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 25px;
+
+            button {
+                padding: 20px 60px;
+                border: none;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+                background-color: utils.argent-bank('green');
+                color: white;
+
+                &:hover {
+                    background-color: color.scale(utils.argent-bank('green'), $lightness: -10%);
+                }
+            }
+        }
+    }
+}

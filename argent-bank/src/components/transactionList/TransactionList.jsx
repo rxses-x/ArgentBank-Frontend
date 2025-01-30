@@ -135,9 +135,9 @@ const TransactionList = () => {
 
 	return (
 		<div className="transaction-list__container">
-			{transactions.map((account, index) => (
+			{transactions.map((account) => (
 				<>
-					<div key={index} className="transaction-list__transaction">
+					<div key={`transaction_list-${account.id}`} className="transaction-list__transaction">
 						{/* Outer Collapse: Account Summary */}
 						<div
 							className="transaction-list__transaction--row"
@@ -154,7 +154,7 @@ const TransactionList = () => {
 						</div>
 					</div>
 					{expandedAccount === account.id && (
-						<div key={ account.id } className="transaction-list__transactions-container">
+						<div className="transaction-list__transactions-container">
 							<div className="transaction-list__transactions-header">
 								<p className="transaction-list__header-cell">Date</p>
 								<p className="transaction-list__header-cell">Description</p>
@@ -163,9 +163,9 @@ const TransactionList = () => {
 							</div>
 
 							{account.details.map((transaction, index) => (
-								<div>
+								<>
 									<div
-										key={ index }
+										key={ `account-${index}` }
 										className="transaction-list__transaction-row"
 										onClick={() => toggleTransaction(index)}
 										>
@@ -232,7 +232,7 @@ const TransactionList = () => {
 											</p>
 										</div>
 									)}
-								</div>
+								</>
 							))}
 						</div>
 					)}

@@ -26,7 +26,7 @@ export const User = () => {
         const fetchUserData = async () => {
             try {
                 if (!token) {
-                    navigate("/login"); // Redirect if no token is found
+                    navigate("/"); // Redirect if no token is found
                     return;
                 }
 
@@ -56,7 +56,7 @@ export const User = () => {
 
             } catch (err) {
                 console.error("Error fetching user data:", err);
-                navigate("/login");
+                navigate("/");
             }
         };
 

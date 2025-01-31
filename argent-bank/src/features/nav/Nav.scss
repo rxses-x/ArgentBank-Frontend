@@ -34,12 +34,16 @@
     }
 
     &__user {
-        @include utils.flex-display(
-            $flex-direction: row-reverse,
-            $gap: 30px
-        );
         color: utils.argent-bank('green');
         cursor: pointer;
+        @include utils.flex-display(
+            $flex-direction: row-reverse,
+            $gap: 20px
+        );
+        @include utils.laptop-responsive() {
+            gap: 30px
+        }
+        
         a {
             @include utils.flex-display(
                 $flex-direction: row-reverse,
@@ -50,7 +54,10 @@
             color: utils.argent-bank('green');
         }
         i {
-            font-size: 40px;
+            font-size: 20px;
+            @include utils.laptop-responsive() {
+                font-size: 40px;
+            }
         }
     }
 }

@@ -23,10 +23,13 @@
             cursor: pointer;
 
             &-header {
-                @include utils.flex-display(
-                    $flex-direction: column,
-                    $align-items: flex-start,
-                );
+                display: flow;
+                @include utils.laptop-responsive() {
+                    @include utils.flex-display(
+                        $flex-direction: column,
+                        $align-items: flex-start,
+                    );
+                }
             }
         }
 
@@ -61,8 +64,11 @@
 		        padding: 0 10px,
             }
             &__arrow {
-                margin-left: 60px;
+                margin-left: 0;
                 font-size: 12px;
+                @include utils.laptop-responsive() {
+                    margin-left: 60px;
+                }
             }
         }
 
@@ -99,13 +105,15 @@
             padding: 10px;
         }
         &-header {
+            padding: 10px;
+            text-align: left;
             @include utils.flex-display(
                 $align-items: normal,
                 $justify-content: space-around,
-                $gap: 50px
             );
-            padding: 10px;
-            text-align: left;
+            @include utils.laptop-responsive() {
+                gap: 50px
+            }
         }
     }
 

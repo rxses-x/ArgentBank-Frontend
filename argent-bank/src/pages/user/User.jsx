@@ -7,25 +7,16 @@ import EditUserInfo from "../../components/editUser/EditUser";
 import TransactionList from "../../components/transactionList/TransactionList";
 
 export const User = () => {
-    const [username, setUsername] = useState("");
-    const [lastname, setLastname] = useState("");
-    const [firstname, setFirstname] = useState("");
-    const token = useSelector((state) => state.auth.token);
+    const tokenState = useSelector((state) => state.auth.token);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
-    const setUserData = (data) => {
-        // check if data is not null
-        if (!data) { return }
-        setUsername(data.userName);
-        setLastname(data.lastName);
-        setFirstname(data.firstName);
-    }
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
+                let token = tokenState || JSON.parse(localStorage.getItem("authToken"))?.token;
                 if (!token) {
+                    console.log("No token found, redirecting to login page");
                     navigate("/"); // Redirect if no token is found
                     return;
                 }
@@ -50,9 +41,7 @@ export const User = () => {
                     lastName: data.body.lastName,
                 };
 
-                setUserData(userInfo);
-
-                dispatch(login({ userInfo, token: token }));
+                dispatch(login({ userInfo: userInfo, token: token }));
 
             } catch (err) {
                 console.error("Error fetching user data:", err);

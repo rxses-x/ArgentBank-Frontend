@@ -154,7 +154,7 @@ const TransactionList = () => {
 						</div>
 					</div>
 					{expandedAccount === account.id && (
-						<div className="transaction-list__transactions-container">
+						<div key={`transaction_container-${account.id}`} className="transaction-list__transactions-container">
 							<div className="transaction-list__transactions-header">
 								<p className="transaction-list__header-cell">Date</p>
 								<p className="transaction-list__header-cell">Description</p>
@@ -181,7 +181,7 @@ const TransactionList = () => {
 									</div>
 									{/* Transaction Details */}
 									{expandedTransaction === index && (
-										<div className="transaction-list__transaction-details">
+										<div key={`transaction_details-${index}`} className="transaction-list__transaction-details">
 											<p>Transaction Type: {transaction.type}</p>
 											<p>
 												Category&nbsp;

@@ -1,8 +1,10 @@
+import { useDispatch } from 'react-redux'
 import IconChat from '../../assets/icon-chat.png'
 import IconMoney from '../../assets/icon-money.png'
 import IconSecurity from '../../assets/icon-security.png'
 import { FeaturesItem } from '../../components/featuresItem/FeaturesItem'
 import { Hero } from '../../components/hero/Hero'
+import { logout } from '../../app/store'
 
 const features = [
 	{
@@ -25,11 +27,32 @@ const features = [
 	}
 ]
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 const MemoizedFeaturesItem = memo(FeaturesItem);
 
 export const Home = () => {
+	const dispatch = useDispatch();
+
+	const getToken = () => {
+		const data = localStorage.getItem("authToken");
+		if (!data) return null;
+	  
+		const { token, expiryTime } = JSON.parse(data);
+	  
+		if (Date.now() > expiryTime) {
+		  console.log("Token expired, clearing...");
+		  localStorage.removeItem("authToken");
+		  dispatch(logout());
+		  return null;
+		}
+	  
+		return token;
+	  };
+
+	useEffect(() => {
+		getToken();
+	}, []);
 	return (
 		<main>
 			<Hero />

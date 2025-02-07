@@ -6,6 +6,7 @@ import { fetchData } from "../../services/api";
 const EditUserInfo = () => {
 	const dispatch = useDispatch();
 	const { userInfo } = useSelector((state) => state.auth);
+	const token = useSelector((state) => state.auth.token);
 
 	const [tempUserName, setTempUserName] = useState("");
 
@@ -29,7 +30,7 @@ const EditUserInfo = () => {
 				method: "PUT",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+					Authorization: `Bearer ${token}`,
 				},
 				body: JSON.stringify({ userName: tempUserName }),
 			});

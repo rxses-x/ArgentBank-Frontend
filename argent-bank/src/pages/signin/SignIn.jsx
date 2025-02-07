@@ -13,16 +13,16 @@ export const SignIn = () => {
 	const navigate = useNavigate();
 
 	const error = useSelector((state) => state.auth.error);
-
-	const userInfo = [];
-
 	// Check for token in localStorage on component mount
 	useEffect(() => {
 		const storedToken = localStorage.getItem("authToken");
 		if (storedToken) {
-			// Attempt to validate the token or auto-login
-			dispatch(login({ userInfo, token: storedToken }));
-			navigate("/profile");
+			const { token, expiryTime } = JSON.parse(storedToken);
+			if ( token ) {
+				// Attempt to validate the token or auto-login
+				dispatch(login({ token: token }));
+				navigate("/profile");
+			}
 		}
 	}, [navigate, dispatch]);
 
@@ -36,16 +36,16 @@ export const SignIn = () => {
 			});
 
 			const data = await response.json();
+			const token = data.body.token;
 
-			if (!data.body.token) {
+			if (!token) {
 				throw new Error(data.message || 'Authentication failed.');
 			}
-
-			dispatch(login({ token: data.body.token }));
+			dispatch(login({ token: token }));
 
 			if (rememberMe) {
-				localStorage.setItem('authToken', data.body.token);
-			}
+				const expiryTime = Date.now() + 60 * 60 * 1000; // 60 minutes (1 hour)
+  				localStorage.setItem("authToken", JSON.stringify({ token, expiryTime }));			}
 
 			navigate('/profile');
 		} catch (err) {

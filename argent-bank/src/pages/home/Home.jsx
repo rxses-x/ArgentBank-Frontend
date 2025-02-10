@@ -1,3 +1,4 @@
+import React, { memo, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux'
 import IconChat from '../../assets/icon-chat.png'
 import IconMoney from '../../assets/icon-money.png'
@@ -27,32 +28,63 @@ const features = [
 	}
 ]
 
-import React, { memo, useEffect } from 'react';
-
 const MemoizedFeaturesItem = memo(FeaturesItem);
 
 export const Home = () => {
 	const dispatch = useDispatch();
 
-	const getToken = () => {
-		const data = localStorage.getItem("authToken");
-		if (!data) return null;
-	  
-		const { token, expiryTime } = JSON.parse(data);
-	  
-		if (Date.now() > expiryTime) {
-		  console.log("Token expired, clearing...");
-		  localStorage.removeItem("authToken");
-		  dispatch(logout());
-		  return null;
-		}
-	  
-		return token;
-	  };
-
 	useEffect(() => {
-		getToken();
-	}, []);
+		const checkToken = () => {
+			const data = localStorage.getItem("authToken");
+			if (!data) return;
+
+			try {
+				const { token, expiryTime } = JSON.parse(data);
+				if (!token || Date.now() > expiryTime) {
+					console.log("Token expired, logging out...");
+					localStorage.removeItem("authToken");
+					dispatch(logout());
+					window.location.reload();
+					return;
+				}
+
+				// Calculate time left before expiration
+				const remainingTime = expiryTime - Date.now();
+				// console.log(`Token expires in ${remainingTime / 1000} seconds`);
+
+				return remainingTime;
+			} catch (error) {
+				console.error("Error parsing token:", error);
+				localStorage.removeItem("authToken");
+				dispatch(logout());
+				window.location.reload();
+			}
+		};
+
+		// Check every second
+		const interval = setInterval(() => {
+			const remainingTime = checkToken();
+			if (remainingTime && remainingTime <= 0) {
+				clearInterval(interval);
+			}
+		}, 1000);
+
+		// Listen for storage changes (other tabs)
+		const handleStorageChange = (event) => {
+			if (event.key === "authToken") {
+				console.log("authToken changed, rechecking expiration...");
+				checkToken();
+			}
+		};
+
+		window.addEventListener("storage", handleStorageChange);
+
+		return () => {
+			clearInterval(interval);
+			window.removeEventListener("storage", handleStorageChange);
+		};
+	}, [dispatch]);
+
 	return (
 		<main>
 			<Hero />

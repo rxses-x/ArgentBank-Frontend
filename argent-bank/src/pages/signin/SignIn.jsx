@@ -26,6 +26,12 @@ export const SignIn = () => {
 		}
 	}, [navigate, dispatch]);
 
+	useEffect(() => {
+		if (error) {
+			dispatch(clearError());
+		}
+	}, [email, password, dispatch]);
+
 	const handleSignin = async () => {
 		try {
 			dispatch(clearError())
@@ -49,7 +55,7 @@ export const SignIn = () => {
 
 			navigate('/profile');
 		} catch (err) {
-			dispatch(setError(err.message));
+			dispatch(setError("Nom d'utilisateur ou mot de passe incorrect"));
 		}
 	};
 

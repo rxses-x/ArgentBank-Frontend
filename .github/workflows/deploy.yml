@@ -21,15 +21,15 @@ jobs:
           node-version: '20'
           
       - name: Install dependencies
-        run: cd argent-bank && npm install
+        run: npm install
         
       - name: Build
-        run: cd argent-bank && VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
+        run: VITE_API_URL=${{ secrets.VITE_API_URL }} npm run build
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: argent-bank/dist
+          path: dist
 
   deploy:
     environment:

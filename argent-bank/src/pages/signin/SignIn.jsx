@@ -18,7 +18,7 @@ export const SignIn = () => {
 		const storedToken = localStorage.getItem("authToken");
 		if (storedToken) {
 			const { token, expiryTime } = JSON.parse(storedToken);
-			if ( token ) {
+			if (token) {
 				// Attempt to validate the token or auto-login
 				dispatch(login({ token: token }));
 				navigate("/profile");
@@ -51,7 +51,8 @@ export const SignIn = () => {
 
 			if (rememberMe) {
 				const expiryTime = Date.now() + 60 * 60 * 1000; // 60 minutes (1 hour)
-  				localStorage.setItem("authToken", JSON.stringify({ token, expiryTime }));			}
+				localStorage.setItem("authToken", JSON.stringify({ token, expiryTime }));
+			}
 
 			navigate('/profile');
 		} catch (err) {
@@ -75,7 +76,7 @@ export const SignIn = () => {
 						<input
 							type="text"
 							id="username"
-							value={ email }
+							value={email}
 							onChange={(e) => setEmail(e.target.value)}
 						/>
 					</div>
@@ -84,7 +85,7 @@ export const SignIn = () => {
 						<input
 							type="password"
 							id="password"
-							value={ password }
+							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</div>
@@ -93,7 +94,7 @@ export const SignIn = () => {
 						<input
 							type="checkbox"
 							id="remember-me"
-							checked={ rememberMe }
+							checked={rememberMe}
 							onChange={(e) => setRememberMe(e.target.checked)}
 						/>
 					</div>

@@ -50,8 +50,7 @@ export const Home = () => {
 
 				// Calculate time left before expiration
 				const remainingTime = expiryTime - Date.now();
-				// console.log(`Token expires in ${remainingTime / 1000} seconds`);
-
+				
 				return remainingTime;
 			} catch (error) {
 				console.error("Error parsing token:", error);
